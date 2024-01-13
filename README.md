@@ -38,7 +38,7 @@ These are the OS_Lab Assignments that I have done Through out My CS232 Course wh
 
 This project is mostly coded in Visual Studio Code editor.
 
-![VS Code](https://assets.stickpng.com/images/62a79050e42d729d928b1756.png)
+![VS Code](https://icons8.com/icon/0OQR1FYCuA9f/visual-studio-code-2019)
 ## Authors and Support
 
 - [@sudipto0315](https://www.github.com/sudipto0315)
