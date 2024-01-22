@@ -10,39 +10,28 @@ int main() {
         return 1;
     }
 
-    int new_fd = open("duplicate.txt", O_CREAT | O_WRONLY, 0644);
+    // Duplicate the file descriptor
+    int duplicated_fd = dup2(original_fd, 100); // 100 is the new file descriptor that we are assigning.
 
-    if (new_fd == -1) {
-        perror("Error opening new file");
+    if (duplicated_fd == -1) {
+        perror("Error duplicating file descriptor");
         close(original_fd);
         return 1;
     }
 
-    // Duplicate 'original_fd' to 'new_fd'
-    dup2(original_fd, new_fd);
-
     // Now 'original_fd' and 'new_fd' refer to the same file.
 
+    // The duplicated_fd is a duplicate of fileDescriptor
+    fprintf(stdout, "original_fd: %d\n", original_fd);
+    fprintf(stdout, "duplicated_fd: %d\n", duplicated_fd);
+
+    // Close the original file descriptor
     close(original_fd);
-    close(new_fd);
 
-    return 0;
-}
-#include <unistd.h>
-#include <stdio.h>
+    // Use the duplicated file descriptor as needed
 
-int main() {
-    int pipe_fd[2];
-    
-    if (pipe(pipe_fd) == -1) {
-        perror("Error creating pipe");
-        return 1;
-    }
-
-    // Now pipe_fd[0] is the read end, and pipe_fd[1] is the write end of the pipe.
-
-    close(pipe_fd[0]);
-    close(pipe_fd[1]);
+    // Close the duplicated file descriptor when done
+    close(duplicated_fd);
 
     return 0;
 }

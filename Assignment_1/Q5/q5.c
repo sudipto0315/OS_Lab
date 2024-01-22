@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <unistd.h>
+#include <unistd.h> // used for fork (unix standard)
 #include <sys/wait.h> // used for waitpid
 
 void count() {

@@ -1,5 +1,6 @@
 #include <fcntl.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int main() {
     int file_descriptor = open("example.txt", O_CREAT | O_WRONLY, 0644);
