@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <unistd.h>
+#include <unistd.h> // used for fork (unix standard)
 #include <sys/wait.h> // used for waitpid
 
 void count() {
@@ -55,6 +55,9 @@ int main(int argc, char *argv[]) {
         perror("Error creating pipe");
         exit(1);
     }
+    
+    // Redirect stdin of the parent process to the input file
+    dup2(fileno(input_file), STDIN_FILENO);
 
     pid_t count_pid, convert_pid; // pid_t is a signed integer type which is capable of representing a process ID 
     // what is a process ID? // a process ID is a unique identifier for a process
@@ -62,17 +65,18 @@ int main(int argc, char *argv[]) {
     if ((count_pid = fork()) == 0) { // what is fork? // fork() creates a new process by duplicating the calling process
         // 0 means success, -1 means error, and > 0 is the process ID of the child process
         // Child 1 (count)
-        close(pipe_fd[1]);  // Close write end of the pipe
-        dup2(pipe_fd[0], STDIN_FILENO); // what is STDIN_FILENO? // STDIN_FILENO is a macro defined in unistd.h which is the file descriptor for stdin that id 0
+        close(pipe_fd[0]);  // Close write end of the pipe
+        dup2(pipe_fd[1], STDOUT_FILENO); // what is STDIN_FILENO? // STDIN_FILENO is a macro defined in unistd.h which is the file descriptor for stdin that id 0
                                         // default file descriptors for stdin, stdout, and stderr are 0, 1, and 2 respectively
-        close(pipe_fd[0]);  // Close read end of the pipe
+        close(pipe_fd[1]);  // Close read end of the pipe
         count(); // what is count? // count is a function that counts the number of non-alphabetic characters in a file
         exit(0);
     } else if ((convert_pid = fork()) == 0) {
         // Child 2 (convert)
-        close(pipe_fd[0]);  // Close read end of the pipe
-        dup2(pipe_fd[1], STDOUT_FILENO);
-        close(pipe_fd[1]);  // Close write end of the pipe
+        close(pipe_fd[1]);  // Close read end of the pipe
+        dup2(pipe_fd[0], STDIN_FILENO);
+        dup2(fileno(output_file), STDOUT_FILENO);  
+        close(pipe_fd[0]);  // Close write end of the pipe
         convert(); // what is convert? // convert is a function that converts all lowercase characters to uppercase and vice versa
         exit(0);
     } else {
