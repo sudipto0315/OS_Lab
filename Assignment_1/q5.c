@@ -15,6 +15,7 @@ void count() {
         putchar(ch);
     }
 
+    fprintf(stdout, "Count of non-alphabetic characters: %d\n", nonAlphabeticCount); 
     fprintf(stderr, "Count of non-alphabetic characters: %d\n", nonAlphabeticCount); 
     // we are printing to stderr because we are redirecting stdout to a file so we can't print to stdout
     // which file are we redirecting stdout to? // we are redirecting stdout to the output file
@@ -69,6 +70,7 @@ int main(int argc, char *argv[]) {
         dup2(pipe_fd[1], STDOUT_FILENO); // what is STDIN_FILENO? // STDIN_FILENO is a macro defined in unistd.h which is the file descriptor for stdin that id 0
                                         // default file descriptors for stdin, stdout, and stderr are 0, 1, and 2 respectively
         close(pipe_fd[1]);  // Close read end of the pipe
+        dup2(fileno(output_file), STDOUT_FILENO); // what is STDERR_FILENO? // STDERR_FILENO is a macro defined in unistd.h which is the file descriptor for stderr that id 2
         count(); // what is count? // count is a function that counts the number of non-alphabetic characters in a file
         exit(0);
     } else if ((convert_pid = fork()) == 0) {
