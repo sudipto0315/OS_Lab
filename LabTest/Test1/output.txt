@@ -1,0 +1,4 @@
+hello hii
+hola
+konichiwa
+Child processes terminated
