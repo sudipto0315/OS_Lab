@@ -3,6 +3,7 @@
         "fcntl.h": "c",
         "unistd.h": "c",
         "stdio.h": "c",
-        "environments.h": "c"
+        "environments.h": "c",
+        "ctype.h": "c"
     }
 }
