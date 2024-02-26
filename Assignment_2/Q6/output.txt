@@ -1,7 +1,0 @@
-,        - !
-12345
- : @#$%^&*()
-   
-    -   .
-   .
-Count of non-alphabetic characters: 51

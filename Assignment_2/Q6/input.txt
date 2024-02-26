@@ -1,6 +1,0 @@
-Hello, this is a sample text with some non-alphabetic characters!
-12345
-Special characters: @#$%^&*()
-Even a newline character
-The program should count non-alphabetic characters excluding newlines.
-End of file test.
