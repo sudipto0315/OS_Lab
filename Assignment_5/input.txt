@@ -1,0 +1,20 @@
+# Number of distinct resources
+3
+# Available Resources
+1 1 0
+# Number of processes
+5
+# Allocation Matrix
+1 0 0
+2 1 2
+0 0 1
+1 0 0
+0 1 0
+# Request/Need Matrix
+1 1 0
+1 1 0
+1 0 0
+1 0 3
+1 1 10
+
+

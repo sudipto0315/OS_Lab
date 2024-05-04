@@ -1,0 +1,5 @@
+Hello, World!
+This is a sample text file.
+It contains both uppercase and lowercase letters, as well as non-alphabetic characters.
+1234567890
+!@#$%^&*()Count of non-alphabetic characters: 47
